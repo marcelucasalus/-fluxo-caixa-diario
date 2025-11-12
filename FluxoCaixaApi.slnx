@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/Application/" />
+  <Folder Name="/Domain/" />
+  <Folder Name="/Infrastructure/" />
+  <Folder Name="/Infrastructure/Database/" />
+  <Folder Name="/Infrastructure/Integration/" />
+  <Folder Name="/Infrastructure/Web/">
+    <Project Path="FluxoCaixaApi/FluxoCaixaApi.csproj" />
+  </Folder>
+  <Folder Name="/Tests/" />
+</Solution>

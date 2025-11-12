@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\marce\\OneDrive\\Documentos\\api\\FluxoCaixaApi\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C0154E35-90DB-4CDB-8CE4-18A56F804F82}|FluxoCaixaApi\\FluxoCaixaApi.csproj|c:\\users\\marce\\onedrive\\documentos\\api\\fluxocaixaapi\\fluxocaixaapi\\controllers\\fluxocaixacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C0154E35-90DB-4CDB-8CE4-18A56F804F82}|FluxoCaixaApi\\FluxoCaixaApi.csproj|solutionrelative:fluxocaixaapi\\controllers\\fluxocaixacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FluxoCaixaController.cs",
+              "DocumentMoniker": "C:\\Users\\marce\\OneDrive\\Documentos\\api\\FluxoCaixaApi\\FluxoCaixaApi\\Controllers\\FluxoCaixaController.cs",
+              "RelativeDocumentMoniker": "FluxoCaixaApi\\Controllers\\FluxoCaixaController.cs",
+              "ToolTip": "C:\\Users\\marce\\OneDrive\\Documentos\\api\\FluxoCaixaApi\\FluxoCaixaApi\\Controllers\\FluxoCaixaController.cs",
+              "RelativeToolTip": "FluxoCaixaApi\\Controllers\\FluxoCaixaController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAABJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-12T00:09:24.947Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
