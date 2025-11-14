@@ -36,6 +36,7 @@ builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(ConsolidadoQueryHandler).Assembly);
 });
 
+
 builder.Services.AddDbContext<FluxoCaixaContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), options =>
 {
@@ -177,7 +178,7 @@ builder.Services.AddAuthorization(options =>
 Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
     .WriteTo.Console() // logs no container
-    .WriteTo.Elasticsearch(new Serilog.Sinks.Elasticsearch.ElasticsearchSinkOptions(new Uri("http://host.docker.internal:9200"))
+    .WriteTo.Elasticsearch(new Serilog.Sinks.Elasticsearch.ElasticsearchSinkOptions(new Uri("http://elasticsearch:9200"))
     {
         AutoRegisterTemplate = true,
         IndexFormat = "fluxocaixa-logs-{0:yyyy.MM.dd}"

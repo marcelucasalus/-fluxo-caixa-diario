@@ -28,4 +28,8 @@
     <ProjectReference Include="..\Store\Store.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Worker\" />
+  </ItemGroup>
+
 </Project>
