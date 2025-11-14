@@ -142,49 +142,41 @@ cd fluxocaixa
 
 
 ```mermaid
-
 flowchart TD
     %% Ator
-    A[Client/API] --> B[Auth Controller: /register & /login]
+    A[Client/API]:::client --> B[Auth Controller: /register e /login]:::auth
 
     %% Autenticação
-    B --> C[Token JWT]
-    C --> D[Perfis de Usuário: Admin / Consulta]
+    B --> C[Token JWT]:::auth
+    C --> D[Perfis de Usuário: Admin / Consulta]:::auth
 
     %% Endpoints
-    D --> E[GET Lancamentos]
-    D --> F[GET Consolidado]
-    D --> G[POST Lancamentos]
+    D --> E[GET Lancamentos]:::endpoint
+    D --> F[GET Consolidado]:::endpoint
+    D --> G[POST Lancamentos]:::endpoint
 
     %% GET Lancamentos
-    E --> H{Cache Hit?}
-    H -->|Sim| I[Retorna do Redis]
-    H -->|Não| J[Consulta SQL Server]
+    E --> H{Cache Hit?}:::decision
+    H -->|Sim| I[Retorna do Redis]:::cache
+    H -->|Não| J[Consulta SQL Server]:::db
     J --> I[Atualiza Cache]
 
     %% GET Consolidado
-    F --> K{Cache Hit?}
-    K -->|Sim| L[Retorna do Redis]
-    K -->|Não| M[Consulta SQL Server]
+    F --> K{Cache Hit?}:::decision
+    K -->|Sim| L[Retorna do Redis]:::cache
+    K -->|Não| M[Consulta SQL Server]:::db
     M --> L[Atualiza Cache]
 
     %% POST Lancamentos
-    G --> N[Cria lançamento]
-    N --> O{Consolidado existe?}
-    O -->|Sim| P[Atualiza Consolidado no SQL + Cache]
-    O -->|Não| Q[Marca como pendente + Salva no SQL + Envia RabbitMQ]
-    Q --> R[Worker Background (HealthCheck)]
-    R --> S[Atualiza Consolidado no SQL]
+    G --> N[Cria lançamento]:::process
+    N --> O{Consolidado existe?}:::decision
+    O -->|Sim| P[Atualiza Consolidado no SQL e Cache]:::db
+    O -->|Não| Q[Marca como pendente, Salva no SQL e Envia RabbitMQ]:::process
+    Q --> R[Worker Background HealthCheck]:::worker
+    R --> S[Atualiza Consolidado no SQL]:::db
 
-    %% Legendas para clareza
-    style A fill:#f9f,stroke:#333,stroke-width:1px
-    style B fill:#bbf,stroke:#333,stroke-width:1px
-    style C fill:#bfb,stroke:#333,stroke-width:1px
-    style D fill:#ffb,stroke:#333,stroke-width:1px
-    style E fill:#fff,stroke:#333,stroke-width:1px
-    style F fill:#fff,stroke:#333,stroke-width:1px
-    style G fill:#fff,stroke:#333,stroke-width:1px
-    style H fill:#fdd,stroke:#333,stroke-width:1px
-    style K fill:#fdd,stroke:#333,stroke-width:1px
-    style O fill:#fdd,stroke:#333,stroke-width:1px
+    %% Classes de estilo
+    classDef client fill:#f9f,stroke:#333,stroke-width:1px
+    classDef auth fill:#bbf,stroke:#333,stroke-width:1px
+    cl
 ```
