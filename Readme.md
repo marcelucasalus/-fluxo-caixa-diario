@@ -53,7 +53,7 @@ O sistema utiliza arquitetura de microsserviços, mensageria (RabbitMQ), cache (
 
 1. Clonar o repositório:
 ```bash
-git clone https://github.com/seu-usuario/fluxocaixa.git
+git clone https://github.com/marcelucasalus/-fluxo-caixa-diario
 cd fluxocaixa
 ```
 2. Acessar caminho raiz do repositorio
