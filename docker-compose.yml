@@ -4,9 +4,9 @@ services:
       context: .
       dockerfile: Dockerfile
     deploy:
-      replicas: 5
+      replicas: 1
     environment:
-      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=FluxoCaixaDb;User Id=sa;Password=YourStrong!Passw0rd;
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=FluxoCaixaDB;User Id=sa;Password=SenhaForte123!;TrustServerCertificate=True;Encrypt=False
       - Redis__Configuration=redis:6379
       - RabbitMq__HostName=rabbitmq
       - Elasticsearch__Uri=http://elasticsearch:9200
@@ -33,17 +33,11 @@ services:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
       SA_PASSWORD: SenhaForte123!
-      ACCEPT_EULA: "Y"
-      TrustServerCertificate: True
-      Encrypt: False
+      ACCEPT_EULA: "Y"      
     ports:
       - "1433:1433"
     networks:
       - fluxo-net
-    healthcheck:
-      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -U sa -P Your_password123 -Q 'SELECT 1'"]
-      interval: 10s
-      retries: 10
 
   redis:
     image: redis:7-alpine

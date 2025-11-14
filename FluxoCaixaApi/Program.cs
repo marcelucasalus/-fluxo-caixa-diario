@@ -43,7 +43,10 @@ builder.Services.AddDbContext<FluxoCaixaContext>(options =>
     options.MigrationsAssembly("Store");
     options.EnableRetryOnFailure();
 }));
-
+/*
+builder.Services.AddDbContext<FluxoCaixaContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+*/
 builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
 {
     var configuration = builder.Configuration;
