@@ -43,10 +43,13 @@ builder.Services.AddDbContext<FluxoCaixaContext>(options =>
     options.MigrationsAssembly("Store");
     options.EnableRetryOnFailure();
 }));
-/*
-builder.Services.AddDbContext<FluxoCaixaContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-*/
+
+// Identity
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<FluxoCaixaContext>()
+    .AddDefaultTokenProviders();
+
+
 builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
 {
     var configuration = builder.Configuration;
@@ -168,10 +171,7 @@ builder.Services.AddTransient<ILancamentoRegistrarService, LancamentoRegistrarSe
 builder.Services.AddTransient<IConsolidadoQueryStore, ConsolidadoQueryStore>();
 builder.Services.AddTransient<ILancamentoQueryStore, LancamentoQueryStore>();
 
-// Identity
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-    .AddEntityFrameworkStores<FluxoCaixaContext>()
-    .AddDefaultTokenProviders();
+
 
 // JWT Authentication
 var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
@@ -218,17 +218,22 @@ builder.Host.UseSerilog();
 
 var app = builder.Build();
 
+
 // Aplicar migrations e inicializar roles
 using (var scope = app.Services.CreateScope())
 {
     // Aplicar migrations do EF Core
     var context = scope.ServiceProvider.GetRequiredService<FluxoCaixaContext>();
-    context.Database.Migrate();
+    
+    if (context.Database.GetPendingMigrations().Any())
+        context.Database.Migrate();
 
     // Inicializar roles de Identity
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
     await RoleInitializer.InitializeAsync(roleManager);
 }
+
+
 
 app.UseCors("AllowAll");
 
@@ -255,3 +260,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
