@@ -2,5 +2,5 @@ using FluxoCaixa.LancamentoRegistrar.Entity;
 
 public interface IRabbitMqPublisher
 {
-    void PublishLancamento(Lancamento lancamento);
+    public void PublishLancamento(Lancamento lancamento);
 }

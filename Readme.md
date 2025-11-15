@@ -118,27 +118,30 @@ cd fluxocaixa
 
 ## 🚀 Melhorias Futuras
 
-### 1️⃣ Monitoramento e Observabilidade
+### 1 Monitoramento e Observabilidade
 - **Prometheus** para coleta de métricas (latência, contagem de requisições, filas pendentes)
 - **Grafana** para dashboards interativos e alertas
 - **Tracing distribuído (OpenTelemetry)** para rastrear o fluxo completo de lançamentos
 
-### 2️⃣ Orquestração e Escalabilidade
+### 2 Orquestração e Escalabilidade
 - **Kubernetes** para deploy, escalabilidade e health checks automáticos
 - **Horizontal Pod Autoscaling (HPA)** para ajustar réplicas conforme demanda
 - **ConfigMaps e Secrets** para gerenciar configurações e senhas com segurança
 
-### 3️⃣ Resiliência e Mensageria
+### 3 Resiliência e Mensageria
 - **Circuit Breaker / Retry Policies** para falhas no SQL Server ou Redis
 - **Dead Letter Queue no RabbitMQ** para mensagens que falharem várias vezes
 
-### 4️⃣ Logging e Centralização
+### 4 Logging e Centralização
 - Integração futura com **Loki/Grafana** para centralização de logs
 - Alertas automáticos caso worker ou banco falhem
 
-### 5️⃣ CI/CD e Automação
+### 5️ CI/CD e Automação
 - Pipelines para build, testes e deploy automático (GitHub Actions, GitLab CI/CD ou Azure DevOps)
 - Deploy automatizado no Kubernetes com **Helm Charts** ou **Kustomize**
+
+### 6 Indexação
+- Melhorar a performace das consultas
 
 
 ```mermaid

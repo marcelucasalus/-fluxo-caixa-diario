@@ -17,12 +17,14 @@ namespace Integration.Sub
         private readonly IConnection _rabbitConnection;
         private readonly IServiceScopeFactory _scopeFactory;
         private readonly ILogger<ConsolidadoWorker> _logger;
+        private readonly HttpClient _httpClient;
 
-        public ConsolidadoWorker(IConnection rabbitConnection, IServiceScopeFactory scopeFactory, ILogger<ConsolidadoWorker> logger)
+        public ConsolidadoWorker(IConnection rabbitConnection, IServiceScopeFactory scopeFactory, ILogger<ConsolidadoWorker> logger, HttpClient httpClient)
         {
             _rabbitConnection = rabbitConnection;
             _scopeFactory = scopeFactory;
             _logger = logger;
+            _httpClient = httpClient;
         }
 
         protected async override Task ExecuteAsync(CancellationToken stoppingToken)
@@ -88,16 +90,13 @@ namespace Integration.Sub
         {
             try
             {
-                _logger.LogInformation("Verificando servico de consolidado.");
-                using var client = new HttpClient();
-                client.Timeout = TimeSpan.FromSeconds(30);
-
-                // Use o hostname do container do serviço de consolidado
-                var response = await client.GetAsync("http://localhost:8080/health");
+                _httpClient.Timeout = TimeSpan.FromSeconds(30);
+                var response = await _httpClient.GetAsync("http://localhost:8080/health");
                 return response.IsSuccessStatusCode;
             }
-            catch
+            catch (Exception e)
             {
+                Console.WriteLine(e);
                 return false;
             }
         }

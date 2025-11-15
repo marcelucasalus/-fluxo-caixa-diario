@@ -217,4 +217,3 @@ C:\Users\marce\OneDrive\Documentos\api\FluxoCaixaApi\FluxoCaixaApi\obj\Debug\net
 C:\Users\marce\OneDrive\Documentos\api\FluxoCaixaApi\FluxoCaixaApi\obj\Debug\net10.0\FluxoCaixaApi.pdb
 C:\Users\marce\OneDrive\Documentos\api\FluxoCaixaApi\FluxoCaixaApi\obj\Debug\net10.0\FluxoCaixaApi.genruntimeconfig.cache
 C:\Users\marce\OneDrive\Documentos\api\FluxoCaixaApi\FluxoCaixaApi\obj\Debug\net10.0\ref\FluxoCaixaApi.dll
-C:\Users\marce\OneDrive\Documentos\api\FluxoCaixaApi\FluxoCaixaApi\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt

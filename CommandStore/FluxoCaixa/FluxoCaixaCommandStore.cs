@@ -3,7 +3,6 @@ using FluxoCaixa.LancamentoRegistrar.Interface;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using StackExchange.Redis;
-using System.Net.Http;
 
 namespace CommandStore.FluxoCaixa
 {
@@ -43,7 +42,6 @@ namespace CommandStore.FluxoCaixa
                     };
                     _logger.LogInformation("Validando registro de lancamento.");
                     await _context.ConsolidadosDiarios.AddAsync(consolidado);
-                    return await ValidaLancamento(lancamento, consolidado, db);
                 }
                 
                 return await ValidaLancamento(lancamento, consolidado, db);                                

@@ -78,7 +78,7 @@ builder.Services.AddSingleton(sp =>
     return connection;
 });
 
-builder.Services.AddSingleton<RabbitMqPublisher>(); // Publisher que só publica mensagens
+builder.Services.AddSingleton<IRabbitMqPublisher, RabbitMqPublisher>(); // Publisher que só publica mensagens
 builder.Services.AddHostedService<ConsolidadoWorker>(); // Worker que consome mensagens
 
 
@@ -136,6 +136,7 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+builder.Services.AddHttpClient();
 builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 builder.Services.AddTransient<IFluxoCaixaCommandStore, FluxoCaixaCommandStore>();
 builder.Services.AddTransient<ILancamentoRegistrarService, LancamentoRegistrarService>();
@@ -181,7 +182,7 @@ builder.Services.AddAuthorization(options =>
 Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
     .WriteTo.Console() // logs no container
-    .WriteTo.Elasticsearch(new Serilog.Sinks.Elasticsearch.ElasticsearchSinkOptions(new Uri("http://elasticsearch:9200"))
+    .WriteTo.Elasticsearch(new Serilog.Sinks.Elasticsearch.ElasticsearchSinkOptions(new Uri("http://172.20.0.4:9200"))
     {
         AutoRegisterTemplate = true,
         IndexFormat = "fluxocaixa-logs-{0:yyyy.MM.dd}"
@@ -192,15 +193,17 @@ builder.Host.UseSerilog();
 
 var app = builder.Build();
 
-using (var scopeRole = app.Services.CreateScope())
+// Aplicar migrations e inicializar roles
+using (var scope = app.Services.CreateScope())
 {
-    var roleManager = scopeRole.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    // Aplicar migrations do EF Core
+    var context = scope.ServiceProvider.GetRequiredService<FluxoCaixaContext>();
+    context.Database.Migrate();
+
+    // Inicializar roles de Identity
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
     await RoleInitializer.InitializeAsync(roleManager);
 }
-
-using var scope = app.Services.CreateScope();
-var context = scope.ServiceProvider.GetRequiredService<FluxoCaixaContext>();
-context.Database.Migrate();
 
 app.UseCors("AllowAll");
 
